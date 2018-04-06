@@ -1,0 +1,10 @@
+.container{
+    width: 100%;
+    text-align: center;
+    padding-top:20px;
+    display: block; 
+}
+
+.full-width{
+    width: 40%;
+}

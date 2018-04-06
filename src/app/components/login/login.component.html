@@ -1,0 +1,22 @@
+<div class="container">
+    <h1 mat-dialog-title>Login</h1>
+    <div mat-dialog-content>
+        <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+            <div>
+                <mat-form-field class="full-width">
+                    <input type="text" matInput name="username" id="username" placeholder="Username" ngModel />
+                </mat-form-field>
+            </div>
+            <div>
+                <mat-form-field class="full-width">
+                    <input type="password" matInput name="password" id="password" placeholder="Password" ngModel />
+                </mat-form-field>
+            </div>
+            <div mat-dialog-actions>
+                <button type="submit" mat-raised-button>Login</button>
+                <a (click)="register()">registrar</a>
+            </div>
+
+        </form>
+    </div>
+</div>
