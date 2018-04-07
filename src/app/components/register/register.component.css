@@ -76,10 +76,13 @@
     color: #677D8B;
 }
 
+.form-field button{
+    padding: 8px 40px;
+}
+
 .enabled-button{
     background-color: #3F51B5;
     color: white;
-    padding: 8px 40px;
 }
 
 .enabled-button:hover{
