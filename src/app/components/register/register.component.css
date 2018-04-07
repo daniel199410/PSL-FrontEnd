@@ -1,23 +1,107 @@
 .container{
     width: 100%;
     text-align: center;
-    padding-top:20px;
-    display: block; 
+    display: block;
+    background: #396afc;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #2948ff, #396afc);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #2948ff, #396afc); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+}
+
+.container h1{
+    margin: 0;
+    width: 60%;
+    background-color: rgba(255,255,255,0.9);
+    padding: 24px 24px 0;
+}
+
+.form{
+    margin: 0 auto;
+    width: 50%;
+    position: relative;
+    left: 9%;
+    top: 60px;
 }
 
 .full-width{
-    width: 40%;
+    width: 70%;
 }
 
 .alert{
-    font-size: .9em;
-    display: inline-block;
+    align-items: center;
+    display: flex;
+    float: left;
+    font-size: .8em;
+    -webkit-animation: 2s alterAnim forwards;
     animation: 2s alterAnim forwards;
     color: #a94442;
-    background-color: #f2dede;
-    border-color: #ebccd1;
-    padding: 15px;
-    margin-bottom: 20px;
-    border: 1px solid transparent;
-    border-radius: 4px;
+    width: 30%;
+    text-align: left;
+}
+
+.alert div{
+    width: 90%;
+    padding-left: 2%;
+    margin-left: 1%;
+    border-left: 1px solid #a94442;
+    margin-top: 4px;
+    padding-right: 4px;
+    margin-bottom: 4px;
+}
+
+.alert i{
+    font-size: 1.2em;
+}
+
+.alert::after{
+    clear: both;
+}
+
+.form-field{
+    width: 60%;   
+    padding: 0 24px;
+}
+
+.form-field, .alert{
+    background-color: rgba(255,255,255,0.9);
+}
+
+.form-field mat-form-field{
+    width: 100%;
+}
+
+.form-field a{
+    display: block;
+    font-size: .9em;
+    text-align: left;
+    color: #677D8B;
+}
+
+.enabled-button{
+    background-color: #3F51B5;
+    color: white;
+    padding: 8px 40px;
+}
+
+.enabled-button:hover{
+    background-color: #283593;
+}
+
+.form-field a:hover{
+    color: #455A64;
+}
+
+.form-group{
+    display: flex;
+}
+
+.link-container{
+    padding-top: 24px;
+}
+
+.pt-24{
+    padding-top: 24px;
+}
+
+.pb-24{
+    padding-bottom: 24px;
 }

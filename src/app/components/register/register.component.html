@@ -1,65 +1,87 @@
-<div class="container">
-    <h1 mat-dialog-title>Register</h1>
+<div class="container" [style.height.px]="height">
+    
     <div mat-dialog-content>
-        <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
-            <div>
-                <mat-form-field class="full-width">
-                    <input type="text" matInput name="name" id="name" placeholder="Name" formControlName="name" />
-                </mat-form-field>
+        <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)" class="form">
+            <h1 mat-dialog-title class="border-radius-top">Register administrator</h1>
+            <div class="form-group">              
+                <div class="form-field pt-24">
+                    <mat-form-field class="">
+                        <input type="text" matInput name="name" id="name" placeholder="Name*" formControlName="name" />
+                    </mat-form-field>                  
+                </div>              
+                <div class="alert" *ngIf="!registerForm.controls['name'].valid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)">
+                    <span><i class="material-icons">error</i></span>
+                    <div>
+                        <p *ngIf="registerForm.get('name').hasError('required')">You must enter a name</p>
+                        <p *ngIf="registerForm.get('name').hasError('pattern')">Invalid name</p>
+                    </div>
+                </div>
             </div>
-            <div class="alert full-width" *ngIf="!registerForm.controls['name'].valid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)">
-                <p *ngIf="registerForm.get('name').hasError('required')">Field is required</p>
-                <p *ngIf="registerForm.get('name').hasError('pattern')">It is not a correct name</p>
+            <div class="form-group">
+                <div class="form-field">
+                    <mat-form-field class="">
+                        <input type="text" matInput name="lastname" id="lastname" placeholder="Lastname*" formControlName="lastname" />
+                    </mat-form-field>
+                </div>
+                <div class="alert" *ngIf="!registerForm.controls['lastname'].valid && (registerForm.controls['lastname'].dirty || registerForm.controls['lastname'].touched)">
+                    <span><i class="material-icons">error</i></span>
+                    <div>
+                        <p *ngIf="registerForm.get('lastname').hasError('required')">You must enter your lastname</p>
+                        <p *ngIf="registerForm.get('lastname').hasError('pattern')">Invalid lastname</p>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <mat-form-field class="full-width">
-                    <input type="text" matInput name="lastname" id="lastname" placeholder="Lastname" formControlName="lastname" />
-                </mat-form-field>
+            <div class="form-group">
+                <div class="form-field">
+                    <mat-form-field class="">
+                        <input type="text" matInput name="email" id="email" placeholder="Email*" formControlName="email" />
+                    </mat-form-field>
+                </div>
+                <div class="alert" *ngIf="!registerForm.controls['email'].valid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+                    <span><i class="material-icons">error</i></span>
+                    <div>
+                        <p *ngIf="registerForm.get('email').hasError('required')">You must enter your email account</p>
+                        <p *ngIf="registerForm.get('email').hasError('email')">Invalid email</p>
+                    </div>
+                </div>
             </div>
-            <div class="alert full-width" *ngIf="!registerForm.controls['lastname'].valid && (registerForm.controls['lastname'].dirty || registerForm.controls['lastname'].touched)">
-                <p *ngIf="registerForm.get('lastname').hasError('required')">Field is required</p>
-                <p *ngIf="registerForm.get('lastname').hasError('pattern')">It is not a correct lastname</p>
+            <div class="form-group">
+                <div class="form-field">
+                    <mat-form-field class="">
+                        <input type="password" matInput name="password" id="password" placeholder="Password*" formControlName="password" />
+                    </mat-form-field>
+                </div>
+                <div class="alert" *ngIf="!registerForm.controls['password'].valid && (registerForm.controls['password'].touched )">
+                    <span><i class="material-icons">error</i></span>
+                    <div>
+                        <p *ngIf="registerForm.get('password').hasError('required')">You must enter a password</p>
+                        <p *ngIf="registerForm.get('password').hasError('minlength')">Password must have at least 8 characters</p>
+                        <p *ngIf="containsName(registerForm.get('name').value, registerForm.get('lastname').value)">Password must not contain your name or your lastname</p>
+                    </div>
+                </div>
             </div>
-
-            <div>
-                <mat-form-field class="full-width">
-                    <input type="text" matInput name="email" id="email" placeholder="Email" formControlName="email" />
-                </mat-form-field>
+            <div class="form-group">
+                <div class="form-field">
+                    <mat-form-field class="">
+                        <input type="password" matInput name="rpassword" id="rpassword" placeholder="Repeat Password*" formControlName="rpassword"/>
+                    </mat-form-field>
+                </div>   
+                    <div class="alert" *ngIf="!registerForm.controls['rpassword'].valid && registerForm.controls['rpassword'].touched">
+                        <span><i class="material-icons">error</i></span>  
+                        <p *ngIf="registerForm.get('rpassword').hasError('required')">Please, confirm your password</p>
+                    </div>
+                    <div class="alert" *ngIf="registerForm.controls['password'].valid && registerForm.controls['rpassword'].valid && registerForm.hasError('mismatch')">
+                        <p>Passwords do not match</p>
+                    </div>
             </div>
-            <div class="alert full-width" *ngIf="!registerForm.controls['email'].valid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
-                <p *ngIf="registerForm.get('email').hasError('required')">Field is required</p>
-                <p *ngIf="registerForm.get('email').hasError('email')">It is not a correct email</p>
-            </div>
-
-
-            <div>
-                <mat-form-field class="full-width">
-                    <input type="password" matInput name="password" id="password" placeholder="Password" formControlName="password" />
-                </mat-form-field>
-            </div>
-            <div class="alert full-width" *ngIf="!registerForm.controls['password'].valid && registerForm.controls['password'].touched">
-                <p *ngIf="registerForm.get('password').hasError('required')">Field is required</p>
-                <p *ngIf="registerForm.get('password').hasError('minlength')">Password must be minimun of 8 characters</p>
-            </div>
-
-            <div>
-                <mat-form-field class="full-width">
-                    <input type="password" matInput name="rpassword" id="rpassword" placeholder="Repeat Password" formControlName="rpassword"/>
-                </mat-form-field>
-            </div>
-            <div class="alert full-width" *ngIf="!registerForm.controls['rpassword'].valid && registerForm.controls['rpassword'].touched">
-                <p *ngIf="registerForm.get('rpassword').hasError('required')">Field is required</p>
-            </div>
-
-            <div class="alert full-width" *ngIf="registerForm.controls['password'].valid && registerForm.controls['rpassword'].valid && registerForm.hasError('mismatch')">
-                <p>Passwords does not match</p>
-            </div>
-
-
-            <div mat-dialog-actions>
-                <button type="submit" mat-raised-button [disabled]="!registerForm.valid">Register</button>
-                <a (click)="login()">login</a>
+            <div class="form-group">
+                <div mat-dialog-actions class="form-field pb-24 border-radius-bottom">
+                    <button type="submit" mat-raised-button [disabled]="!registerForm.valid" [class.enabled-button]="registerForm.valid">Register</button>
+                    <div class="link-container">
+                        <a (click)="login()">Already an Administrator? login</a>
+                        <a (click)="login()">Are you a collaborator? login as a collaborator</a>
+                    </div>
+                </div>
             </div>
         </form>
     </div>

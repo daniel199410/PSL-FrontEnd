@@ -9,14 +9,16 @@ import { Router } from '@angular/router';
 })
 export class RegisterComponent implements OnInit {
   registerForm;
-  name: string 
+  name: string;
+  passwordValue: string;
+  height: number;
 
   constructor(private router: Router) {
     this.registerForm = new FormGroup({
 
       name: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.pattern('[a-zA-Z1-9]*'),
+        Validators.pattern('[a-zA-Z1-9-]*'),
       ])),
 
       lastname: new FormControl("", Validators.compose([
@@ -28,10 +30,10 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.email,
       ])),
-
+      
       password: new FormControl("", Validators.compose([
         Validators.required,
-        Validators.minLength(8),
+        Validators.minLength(8)
       ])),
 
       rpassword: new FormControl("", Validators.compose([
@@ -48,9 +50,8 @@ export class RegisterComponent implements OnInit {
 
 
   ngOnInit() {
+    this.height = window.innerHeight;
   }
-
-
 
   register(form: NgForm) {
     console.log(form.value);
@@ -58,5 +59,17 @@ export class RegisterComponent implements OnInit {
 
   login() {
     this.router.navigate(['/login']);
+  }
+
+  containsName(name:string, lastname:string){
+    this.passwordValue = this.registerForm.get('password').value;
+    if(name.length > 0 && lastname.length === 0)
+      return this.passwordValue.match(name);
+    else if(lastname.length > 0 && name.length === 0)
+      return this.passwordValue.match(lastname);
+    else if(lastname.length > 0 && name.length > 0)
+      return this.passwordValue.match(lastname) || this.passwordValue.match(name);
+    else
+      return false;
   }
 }
